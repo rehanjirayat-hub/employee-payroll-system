@@ -16,6 +16,13 @@ public class Department {
         this.departmentCode = departmentCode;
         this.createdAt = createdAt;
     }
+    public Department(int departmentId,
+                      String departmentName,
+                      String departmentCode) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.departmentCode = departmentCode;
+    }
 
     public Department(int departmentId, String departmentName, String departmentCode, LocalDateTime createdAt) {
         this.departmentId = departmentId;
