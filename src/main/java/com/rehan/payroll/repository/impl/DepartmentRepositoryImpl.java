@@ -5,10 +5,7 @@ import com.rehan.payroll.model.Department;
 import com.rehan.payroll.repository.DepartmentRepository;
 import com.rehan.payroll.util.ConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +18,32 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         INSERT INTO departments (department_name, department_code)
         VALUES (?, ?)
         """;
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement =
+                     connection.prepareStatement(
+                             sql,
+                             Statement.RETURN_GENERATED_KEYS
+                     )) {
 
             preparedStatement.setString(1, department.getDepartmentName());
             preparedStatement.setString(2, department.getDepartmentCode());
-            int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0;
 
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+
+                if (generatedKeys.next()) {
+                    int generatedId = generatedKeys.getInt(1);
+                    department.setDepartmentId(generatedId);
+                }
+
+                return true;
+            }
+
+            return false;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
