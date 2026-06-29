@@ -16,6 +16,7 @@ public class Department {
         this.departmentCode = departmentCode;
         this.createdAt = createdAt;
     }
+
     public Department(int departmentId,
                       String departmentName,
                       String departmentCode) {

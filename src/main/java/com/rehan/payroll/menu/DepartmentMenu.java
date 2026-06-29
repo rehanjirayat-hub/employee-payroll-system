@@ -21,27 +21,27 @@ public class DepartmentMenu {
         do {
 
             System.out.println("""
-====================================
-      DEPARTMENT MANAGEMENT
-====================================
-
-1. Add Department
-2. View All Departments
-3. Search Department by ID
-4. Update Department
-5. Delete Department
-6. Back to Main Menu
-
-Enter your choice:
-""");
+                    ====================================
+                          DEPARTMENT MANAGEMENT
+                    ====================================
+                    
+                    1. Add Department
+                    2. View All Departments
+                    3. Search Department by ID
+                    4. Update Department
+                    5. Delete Department
+                    6. Back to Main Menu
+                    
+                    Enter your choice:
+                    """);
             choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
 
                 case 1:
-                try {
+                    try {
 
-                    System.out.print("Enter Department Name: ");
+                        System.out.print("Enter Department Name: ");
                         String departmentName = scanner.nextLine();
 
                         System.out.print("Enter Department Code: ");
@@ -59,12 +59,10 @@ Enter your choice:
                         } else {
                             System.out.println("❌ Failed to add department.");
                         }
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
-
-
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
 
 
                 case 2:
@@ -75,15 +73,15 @@ Enter your choice:
 
                         if (departments.isEmpty()) {
                             System.out.println("No departments found.");
-                        }else {
-                        for (Department department : departments) {
-                            System.out.println(
-                                    department.getDepartmentId() + " " +
-                                            department.getDepartmentName() + " " +
-                                            department.getDepartmentCode() + " " +
-                                            department.getCreatedAt()
-                            );
-                        }
+                        } else {
+                            for (Department department : departments) {
+                                System.out.println(
+                                        department.getDepartmentId() + " " +
+                                                department.getDepartmentName() + " " +
+                                                department.getDepartmentCode() + " " +
+                                                department.getCreatedAt()
+                                );
+                            }
                         }
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
@@ -147,18 +145,18 @@ Enter your choice:
                     break;
 
                 case 5:
-                    try{
+                    try {
                         System.out.println("\n========== Delete Department ==========");
                         System.out.print("Enter Department ID: ");
                         int departmentId = Integer.parseInt(scanner.nextLine());
                         boolean isDeleted = departmentService.deleteDepartment(departmentId);
-                        if (isDeleted){
+                        if (isDeleted) {
                             System.out.println("✅ Department deleted successfully.");
-                        }else {
+                        } else {
                             System.out.println("❌ Failed to delete department.");
                         }
 
-                    }catch (IllegalArgumentException e) {
+                    } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
                     break;

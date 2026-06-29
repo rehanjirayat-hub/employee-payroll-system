@@ -33,13 +33,13 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<Department> getAllDepartments() {
-        return  departmentRepository.getAllDepartments();
+        return departmentRepository.getAllDepartments();
     }
 
     @Override
     public Department getDepartmentById(int departmentId) {
-        if (departmentId <= 0){
-            throw  new IllegalArgumentException( "Department ID must be greater than zero.");
+        if (departmentId <= 0) {
+            throw new IllegalArgumentException("Department ID must be greater than zero.");
         }
         return departmentRepository.getDepartmentById(departmentId);
     }
@@ -49,9 +49,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (department == null) {
             throw new IllegalArgumentException("Department cannot be null.");
         }
-        if (department.getDepartmentId() <= 0){
+        if (department.getDepartmentId() <= 0) {
 
-            throw  new IllegalArgumentException( "Department ID must be greater than zero.");
+            throw new IllegalArgumentException("Department ID must be greater than zero.");
 
         }
 
@@ -70,8 +70,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public boolean deleteDepartment(int departmentId) {
-        if (departmentId <= 0){
-            throw  new IllegalArgumentException( "Department ID must be greater than zero.");
+        if (departmentId <= 0) {
+            throw new IllegalArgumentException("Department ID must be greater than zero.");
         }
         return departmentRepository.deleteDepartment(departmentId);
     }

@@ -4,7 +4,7 @@ import com.rehan.payroll.model.Department;
 
 import java.util.List;
 
-public interface DepartmentRepository{
+public interface DepartmentRepository {
     boolean addDepartment(Department department);
 
     List<Department> getAllDepartments();

@@ -4,47 +4,49 @@ import com.rehan.payroll.enumtype.EmployeeStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Employee {
     private int employeeId;
     private String firstName;
     private String lastName;
     private String email;
-    private String phone;
+    private String phoneNumber;
     private String designation;
     private LocalDate joiningDate;
     private double basicSalary;
     private EmployeeStatus status;
-    private int departmentId;
+    private Department department;
     private LocalDateTime createdAt;
+
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String email, String phone, String designation, LocalDate joiningDate, double basicSalary, EmployeeStatus status, int departmentId) {
+    public Employee(String firstName, String lastName, String email, String phoneNumber, String designation, LocalDate joiningDate, double basicSalary, EmployeeStatus status, Department department, LocalDateTime createdAt) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.designation = designation;
         this.joiningDate = joiningDate;
         this.basicSalary = basicSalary;
         this.status = status;
-        this.departmentId = departmentId;
-        createdAt = LocalDateTime.now();
+        this.department = department;
+        this.createdAt = createdAt;
     }
 
-    public Employee(int employeeId, String firstName, String lastName, String email, String phone, String designation, LocalDate joiningDate, double basicSalary, EmployeeStatus status, int departmentId, LocalDateTime createdAt) {
+    public Employee(int employeeId, String firstName, String lastName, String email, String phoneNumber, String designation, LocalDate joiningDate, double basicSalary, EmployeeStatus status, Department department, LocalDateTime createdAt) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.designation = designation;
         this.joiningDate = joiningDate;
         this.basicSalary = basicSalary;
         this.status = status;
-        this.departmentId = departmentId;
+        this.department = department;
         this.createdAt = createdAt;
     }
 
@@ -80,12 +82,12 @@ public class Employee {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getDesignation() {
@@ -120,12 +122,12 @@ public class Employee {
         this.status = status;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -142,11 +144,26 @@ public class Employee {
                 "employeeId=" + employeeId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", designation='" + designation + '\'' +
                 ", joiningDate=" + joiningDate +
+                ", basicSalary=" + basicSalary +
                 ", status=" + status +
-                ", departmentId=" + departmentId +
+                ", department=" + department +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getEmployeeId());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee employee)) return false;
+        return employeeId == employee.employeeId;
     }
 }

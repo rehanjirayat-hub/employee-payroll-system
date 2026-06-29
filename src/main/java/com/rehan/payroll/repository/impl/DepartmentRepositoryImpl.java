@@ -15,9 +15,9 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     @Override
     public boolean addDepartment(Department department) {
         String sql = """
-        INSERT INTO departments (department_name, department_code)
-        VALUES (?, ?)
-        """;
+                INSERT INTO departments (department_name, department_code)
+                VALUES (?, ?)
+                """;
 
         try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement =
@@ -56,8 +56,8 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         List<Department> departments = new ArrayList<>();
 
         String sql = """
-            SELECT * FROM departments
-            """;
+                SELECT * FROM departments
+                """;
         try (
                 Connection connection = ConnectionManager.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -92,9 +92,9 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     public Department getDepartmentById(int departmentId) {
 
         String sql = """
-            SELECT * FROM departments
-            WHERE department_id = ?
-            """;
+                SELECT * FROM departments
+                WHERE department_id = ?
+                """;
 
         try (
                 Connection connection = ConnectionManager.getConnection();
@@ -135,13 +135,13 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
                 WHERE department_id = ?
                 """;
 
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
 
             preparedStatement.setString(1, department.getDepartmentName());
             preparedStatement.setString(2, department.getDepartmentCode());
-            preparedStatement.setInt(3,department.getDepartmentId());
+            preparedStatement.setInt(3, department.getDepartmentId());
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
 
@@ -150,14 +150,15 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public boolean deleteDepartment(int departmentId) {
         String sql = "DELETE FROM departments\n" +
                 "WHERE department_id = ?";
 
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setInt(1,departmentId);
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, departmentId);
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
 
