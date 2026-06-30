@@ -417,6 +417,76 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
+    public Optional<Employee> findByPhoneNumber(String phoneNumber) {
+        String sql = """
+                SELECT
+                    e.employee_id,
+                    e.first_name,
+                    e.last_name,
+                    e.email,
+                    e.phone_number,
+                    e.designation,
+                    e.joining_date,
+                    e.basic_salary,
+                    e.status,
+                    e.created_at,
+                
+                    d.department_id,
+                    d.department_name,
+                    d.department_code
+                
+                FROM employees e
+                JOIN departments d
+                    ON e.department_id = d.department_id
+               WHERE e.phone_number = ?
+                """;
+
+        try (
+                Connection connection = ConnectionManager.getConnection();
+                PreparedStatement preparedStatement =
+                        connection.prepareStatement(sql)
+        ) {
+
+            preparedStatement.setString(1, phoneNumber);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+
+                Employee employee = new Employee();
+                Department department = new Department();
+
+
+                employee.setEmployeeId(resultSet.getInt("employee_id"));
+                employee.setFirstName(resultSet.getString("first_name"));
+                employee.setLastName(resultSet.getString("last_name"));
+                employee.setEmail(resultSet.getString("email"));
+                employee.setPhoneNumber(resultSet.getString("phone_number"));
+                employee.setDesignation(resultSet.getString("designation"));
+                employee.setJoiningDate(resultSet.getDate("joining_date").toLocalDate());
+                employee.setBasicSalary(resultSet.getDouble("basic_salary"));
+                employee.setStatus(EmployeeStatus.valueOf(resultSet.getString("status")));
+                employee.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
+
+
+                department.setDepartmentId(resultSet.getInt("department_id"));
+                department.setDepartmentName(resultSet.getString("department_name"));
+                department.setDepartmentCode(resultSet.getString("department_code"));
+
+
+                employee.setDepartment(department);
+
+                return Optional.of(employee);
+            }
+
+            return Optional.empty();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public boolean update(Employee employee) {
 
         String sql = """

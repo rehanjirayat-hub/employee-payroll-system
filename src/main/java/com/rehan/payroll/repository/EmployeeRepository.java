@@ -24,4 +24,6 @@ public interface EmployeeRepository {
     boolean existsByEmail(String email);
 
     boolean existsByPhoneNumber(String phoneNumber);
+
+    Optional<Employee> findByPhoneNumber(String phoneNumber);
 }
